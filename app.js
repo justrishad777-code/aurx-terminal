@@ -1,24 +1,23 @@
 /**
- * RTV Market Terminal - Core Application Logic
- * Initializes charting widgets and handles UI routing.
+ * RTV Market Terminal - Core Application Controller
+ * Manages view routing, interactive charts and cache cleanup operations.
  */
 
-// Global Chart State
+// Application Operational States
 const chartState = {
     interval: "D",
-    style: "1",      
+    style: "1",      // 1 = Candle Chart, 3 = Area Chart
     showDraw: false  
 };
 
 let isChartInitialized = false;
 
 /**
- * Initializes or updates the TradingView dynamic widget.
- * Wipes the existing container to enforce new parameters.
+ * Destroys existing instance and renders a clean TradingView chart frame
  */
 function renderDynamicChart() {
     const wrapper = document.getElementById('dynamic-chart-wrapper');
-    wrapper.innerHTML = ''; 
+    wrapper.innerHTML = ''; // Enforce structural wipe
 
     const container = document.createElement('div');
     container.id = "tv_dynamic_container";
@@ -47,14 +46,14 @@ function renderDynamicChart() {
 }
 
 /**
- * Controls visibility of the timeframe selection modal
+ * Toggles structural visibility of the timeframe selection overlay modal
  */
 function toggleTimeframeMenu() {
     document.getElementById('tf-dropdown').classList.toggle('is-visible');
 }
 
 /**
- * Updates timeframe state and triggers re-render
+ * Mutates chart resolution interval state and triggers frame re-render
  */
 function applyTimeframe(intervalCode, label, element) {
     chartState.interval = intervalCode;
@@ -69,7 +68,7 @@ function applyTimeframe(intervalCode, label, element) {
 }
 
 /**
- * Updates charting tools (drawing & styles)
+ * Mutates peripheral toolbar options (Drawing utilities & structural types)
  */
 function updateChartSetting(actionType, value, element) {
     if (actionType === 'style') {
@@ -84,16 +83,14 @@ function updateChartSetting(actionType, value, element) {
 }
 
 /**
- * Core application router for View Modules
+ * Core Navigation Router for Module Transitions
  */
 function routeTo(viewId, headerTitle, triggerElement) {
-    // Manage Views
     document.querySelectorAll('.view-module').forEach(view => {
         view.classList.remove('is-active');
     });
     document.getElementById(viewId).classList.add('is-active');
 
-    // Manage Nav State
     document.querySelectorAll('.nav-action').forEach(btn => {
         btn.classList.remove('is-active');
     });
@@ -102,12 +99,10 @@ function routeTo(viewId, headerTitle, triggerElement) {
     const globalHeader = document.getElementById('globalHeader');
     const mainWorkspace = document.getElementById('mainWorkspace');
 
-    // View-specific adjustments
     if (viewId === 'view-terminal') {
         globalHeader.style.display = 'none';
         mainWorkspace.style.padding = '0';
         
-        // Lazy load the chart widget to optimize initial app load
         if (!isChartInitialized) {
             renderDynamicChart();
             isChartInitialized = true;
@@ -115,20 +110,44 @@ function routeTo(viewId, headerTitle, triggerElement) {
     } else {
         globalHeader.style.display = 'flex';
         document.getElementById('header-title').innerText = headerTitle;
-        // Default workspace padding (accounts for bottom nav clearance)
-        mainWorkspace.style.padding = '10px 15px 120px 15px';
+        mainWorkspace.style.padding = '10px 15px 130px 15px';
     }
 }
 
 /**
- * Handles the RTV Monogram interactive branding
+ * Controls structural state changes for reactive interactive monogram
  */
 function toggleBranding(element) {
     element.classList.toggle('is-expanded');
-    
     if(element.classList.contains('is-expanded')) {
         setTimeout(() => {
             element.classList.remove('is-expanded');
         }, 3000);
     }
 }
+
+/**
+ * Purges memory storage layers and triggers application force reload
+ */
+function performSystemCleanup() {
+    if (window.confirm("Perform cache purge? This clear temporary system buffers.")) {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.reload(true);
+    }
+}
+
+// Dynamically Injecting Functional Cleaners into Workspace Menu Component
+document.addEventListener("DOMContentLoaded", () => {
+    const settingsContainer = document.querySelector('.settings-menu');
+    if(settingsContainer) {
+        settingsContainer.innerHTML = `
+            <li class="settings-item" onclick="performSystemCleanup()">
+                <span class="settings-icon">🧹</span> Clear System Cache
+            </li>
+            <li class="settings-item" onclick="alert('RTV Terminal Environment v1.0.0 is running stably.')">
+                <span class="settings-icon">ℹ️</span> Core Engine Info
+            </li>
+        `;
+    }
+});
