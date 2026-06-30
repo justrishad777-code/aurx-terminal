@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RTV Market Terminal</title>
+    <title>RTV Terminal</title>
     <!-- PWA Setup -->
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 </head>
@@ -23,7 +24,7 @@
         </defs>
     </svg>
 
-    <!-- App Header -->
+    <!-- Global App Header -->
     <div class="app-header" id="globalHeader">
         <h1>Markets</h1>
         <div class="user-avatar">
@@ -35,10 +36,7 @@
 
         <!-- MODULE 1: DASHBOARD -->
         <div id="view-dashboard" class="view-module is-active">
-            <div class="welcome-header">
-                Welcome back,
-                <span>Market Overview</span>
-            </div>
+            <div class="welcome-header">Welcome back, <span>Market Overview</span></div>
             
             <div class="asset-card">
                 <div class="tradingview-widget-container">
@@ -48,15 +46,7 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle">
-                        <svg viewBox="0 0 100 100" width="22" height="22" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.8)); transform: skewX(-5deg);">
-                            <g fill="none" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 10,20 H 45 C 60,20 60,50 45,50 H 10 M 35,50 L 50,80" />
-                                <path d="M 45,20 H 75 M 60,20 V 80" />
-                                <path d="M 75,20 L 90,80 L 105,20" />
-                            </g>
-                        </svg>
-                    </div>
+                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
                     <div class="brand-label">Rishad Trade Viewer</div>
                 </div>
             </div>
@@ -69,15 +59,7 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle">
-                        <svg viewBox="0 0 100 100" width="22" height="22" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.8)); transform: skewX(-5deg);">
-                            <g fill="none" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 10,20 H 45 C 60,20 60,50 45,50 H 10 M 35,50 L 50,80" />
-                                <path d="M 45,20 H 75 M 60,20 V 80" />
-                                <path d="M 75,20 L 90,80 L 105,20" />
-                            </g>
-                        </svg>
-                    </div>
+                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
                     <div class="brand-label">Rishad Trade Viewer</div>
                 </div>
             </div>
@@ -90,15 +72,7 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle">
-                        <svg viewBox="0 0 100 100" width="22" height="22" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.8)); transform: skewX(-5deg);">
-                            <g fill="none" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 10,20 H 45 C 60,20 60,50 45,50 H 10 M 35,50 L 50,80" />
-                                <path d="M 45,20 H 75 M 60,20 V 80" />
-                                <path d="M 75,20 L 90,80 L 105,20" />
-                            </g>
-                        </svg>
-                    </div>
+                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
                     <div class="brand-label">Rishad Trade Viewer</div>
                 </div>
             </div>
@@ -111,28 +85,20 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle">
-                        <svg viewBox="0 0 100 100" width="22" height="22" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.8)); transform: skewX(-5deg);">
-                            <g fill="none" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 10,20 H 45 C 60,20 60,50 45,50 H 10 M 35,50 L 50,80" />
-                                <path d="M 45,20 H 75 M 60,20 V 80" />
-                                <path d="M 75,20 L 90,80 L 105,20" />
-                            </g>
-                        </svg>
-                    </div>
+                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
                     <div class="brand-label">Rishad Trade Viewer</div>
                 </div>
             </div>
         </div>
 
-        <!-- MODULE 2: CHART TERMINAL (Restored Full Design) -->
+        <!-- MODULE 2: CHART TERMINAL -->
         <div id="view-terminal" class="view-module">
             
             <div class="wb-chart-header">
                 <div class="wb-header-left">
                     <svg width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="color: var(--text-primary); cursor:pointer;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     <div class="wb-asset-info">
-                        <h2>XAUUSD</h2>
+                        <h2 id="chart-title">XAUUSD</h2>
                         <div class="price-tick">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 10l5 5 5-5z"></path></svg>
                             Live Market Data
@@ -140,12 +106,15 @@
                     </div>
                 </div>
                 <div class="wb-header-right">
-                    <svg width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="cursor:pointer;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <svg width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="cursor:pointer;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                    <!-- SEARCH ICON WIRED TO CHANGE SYMBOL -->
+                    <svg onclick="changeSymbol()" width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="cursor:pointer;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <!-- MULTI-CHART / EXTRA OPTION ICON -->
+                    <svg onclick="alert('Multiple chart layout coming soon!')" width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="cursor:pointer;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
                 </div>
             </div>
 
             <div class="wb-chart-container">
+                <!-- TIMEFRAME MENU -->
                 <div id="tf-dropdown" class="tf-menu">
                     <div class="tf-grid">
                         <div class="tf-option" onclick="applyTimeframe('1', '1m', this)">1m</div>
@@ -164,20 +133,12 @@
                 
                 <div class="mask-overlay mask-chart"></div>
                 <div class="brand-monogram pos-terminal" onclick="toggleBranding(this)">
-                    <div class="brand-circle">
-                        <svg viewBox="0 0 100 100" width="22" height="22" style="filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.8)); transform: skewX(-5deg);">
-                            <g fill="none" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 10,20 H 45 C 60,20 60,50 45,50 H 10 M 35,50 L 50,80" />
-                                <path d="M 45,20 H 75 M 60,20 V 80" />
-                                <path d="M 75,20 L 90,80 L 105,20" />
-                            </g>
-                        </svg>
-                    </div>
+                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
                     <div class="brand-label">Rishad Trade Viewer</div>
                 </div>
             </div>
 
-            <!-- Toolbar -->
+            <!-- Toolbar Restored & Fixed -->
             <div class="wb-chart-toolbar">
                 <div class="wb-tool-item is-selected" id="tf-selector-btn" onclick="toggleTimeframeMenu()">
                     <span id="current-tf-label">Daily</span>
@@ -209,8 +170,16 @@
 
         <!-- MODULE 4: MENU -->
         <div id="view-menu" class="view-module">
-            <ul class="settings-menu"></ul>
+            <ul class="settings-menu">
+                <li class="settings-item" onclick="performSystemCleanup()">
+                    <span class="settings-icon">🧹</span> Clear System Cache
+                </li>
+                <li class="settings-item" onclick="alert('RTV Terminal Environment v2.0 Webull Pro is running.')">
+                    <span class="settings-icon">ℹ️</span> System Version Info
+                </li>
+            </ul>
         </div>
+
     </div>
 
     <!-- Bottom Navigation -->
@@ -227,7 +196,7 @@
             <svg viewBox="0 0 24 24"><path d="M19 32H5C3.89543 32 3 31.1046 3 30V6C3 4.89543 3.89543 4 5 4H19C20.1046 4 21 4.89543 21 6V30C21 31.1046 20.1046 32 19 32Z"></path><path d="M7 10H17"></path><path d="M7 16H17"></path><path d="M7 22H11"></path></svg>
             News
         </button>
-        <button class="nav-action" onclick="routeTo('view-menu', 'Menu', this)">
+        <button class="nav-action" onclick="routeTo('view-menu', 'Workspace', this)">
             <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             Menu
         </button>
