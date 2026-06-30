@@ -1,7 +1,7 @@
 /* =========================================
    CORE THEME VARIABLES (OLED OPTIMIZED)
    ========================================= */
-:root {
+:root { 
     --bg-base: #000000;           
     --bg-panel: #151924;          
     --text-primary: #F3F5F7;      
