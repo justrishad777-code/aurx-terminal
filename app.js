@@ -1,7 +1,7 @@
 let chartState = {
     symbol: "OANDA:XAUUSD",
     interval: "D",
-    style: "1",      
+    style: "1",      // 1=Solid, 9=Hollow, 3=Area
     showDraw: false  
 };
 
@@ -34,7 +34,7 @@ function renderDynamicChart() {
         "allow_symbol_change": false,
         "save_image": false,
         "container_id": "tv_dynamic_container",
-        // WEBULL CANDLE DESIGN (GREEN & RED OVERRIDES)
+        // WEBULL SIGNATURE COLORS FOR BOTH SOLID AND HOLLOW CANDLES
         "studies_overrides": {},
         "overrides": {
             "mainSeriesProperties.candleStyle.upColor": "#00C873",
@@ -42,99 +42,115 @@ function renderDynamicChart() {
             "mainSeriesProperties.candleStyle.borderUpColor": "#00C873",
             "mainSeriesProperties.candleStyle.borderDownColor": "#FF2E50",
             "mainSeriesProperties.candleStyle.wickUpColor": "#00C873",
-            "mainSeriesProperties.candleStyle.wickDownColor": "#FF2E50"
+            "mainSeriesProperties.candleStyle.wickDownColor": "#FF2E50",
+            "mainSeriesProperties.hollowCandleStyle.upColor": "#00C873",
+            "mainSeriesProperties.hollowCandleStyle.downColor": "#FF2E50",
+            "mainSeriesProperties.hollowCandleStyle.borderUpColor": "#00C873",
+            "mainSeriesProperties.hollowCandleStyle.borderDownColor": "#FF2E50",
+            "mainSeriesProperties.hollowCandleStyle.wickUpColor": "#00C873",
+            "mainSeriesProperties.hollowCandleStyle.wickDownColor": "#FF2E50"
         }
     });
 }
 
-// SEARCH ICON LOGIC
-function changeSymbol() {
-    let newSymbol = prompt("Enter Symbol (e.g., BINANCE:BTCUSDT, NASDAQ:AAPL):", chartState.symbol);
-    if (newSymbol && newSymbol.trim() !== "") {
-        chartState.symbol = newSymbol.trim().toUpperCase();
-        document.getElementById("chart-title").innerText = chartState.symbol.split(':').pop(); // Update Title
-        renderDynamicChart();
-    }
-}
-
-function toggleTimeframeMenu() {
-    document.getElementById('tf-dropdown').classList.toggle('is-visible');
+// DROPDOWN MANAGERS
+function toggleMenu(menuId) {
+    // Hide all first
+    document.querySelectorAll('.custom-dropdown').forEach(el => {
+        if(el.id !== menuId) el.classList.remove('is-visible');
+    });
+    // Toggle target
+    document.getElementById(menuId).classList.toggle('is-visible');
 }
 
 function applyTimeframe(intervalCode, label, element) {
     chartState.interval = intervalCode;
     document.getElementById('current-tf-label').innerText = label;
-    document.querySelectorAll('.tf-option').forEach(opt => opt.classList.remove('is-active'));
+    document.getElementById('tf-dropdown').querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('is-active'));
     element.classList.add('is-active');
     document.getElementById('tf-dropdown').classList.remove('is-visible');
     renderDynamicChart();
 }
 
-function updateChartSetting(actionType, value, element) {
-    if (actionType === 'style') {
-        chartState.style = chartState.style === "1" ? "3" : "1";
-        element.classList.toggle('is-selected');
-    }
-    else if (actionType === 'draw') {
-        chartState.showDraw = !chartState.showDraw;
-        element.classList.toggle('is-selected');
-    }
+function applyStyle(styleCode, element) {
+    chartState.style = styleCode;
+    document.getElementById('style-dropdown').querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('is-active'));
+    element.classList.add('is-active');
+    document.getElementById('style-dropdown').classList.remove('is-visible');
     renderDynamicChart();
 }
 
+function toggleDrawing(element) {
+    chartState.showDraw = !chartState.showDraw;
+    element.classList.toggle('is-selected');
+    renderDynamicChart();
+}
+
+// WEBULL SEARCH MODAL LOGIC
+function openSearchModal() {
+    document.getElementById('searchModal').style.display = 'flex';
+    document.getElementById('searchInput').focus();
+}
+
+function closeSearchModal() {
+    document.getElementById('searchModal').style.display = 'none';
+}
+
+function selectSymbol(fullSymbol, subTitle, shortName) {
+    chartState.symbol = fullSymbol;
+    document.getElementById("chart-title").innerText = shortName;
+    document.getElementById("chart-subtitle").innerText = subTitle;
+    closeSearchModal();
+    renderDynamicChart();
+}
+
+function filterWatchlist() {
+    let filter = document.getElementById('searchInput').value.toUpperCase();
+    let li = document.getElementById('watchlistItems').getElementsByTagName('li');
+    for (let i = 0; i < li.length; i++) {
+        let txtValue = li[i].textContent || li[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+// ROUTING
 function routeTo(viewId, headerTitle, triggerElement) {
-    document.querySelectorAll('.view-module').forEach(view => {
-        view.classList.remove('is-active');
-    });
+    document.querySelectorAll('.view-module').forEach(view => view.classList.remove('is-active'));
     document.getElementById(viewId).classList.add('is-active');
 
-    document.querySelectorAll('.nav-action').forEach(btn => {
-        btn.classList.remove('is-active');
-    });
+    document.querySelectorAll('.nav-action').forEach(btn => btn.classList.remove('is-active'));
     triggerElement.classList.add('is-active');
     
-    const globalHeader = document.getElementById('globalHeader');
-    const mainWorkspace = document.getElementById('mainWorkspace');
-
     if (viewId === 'view-terminal') {
-        globalHeader.style.display = 'none';
-        mainWorkspace.style.padding = '0';
-        mainWorkspace.style.overflowY = 'hidden'; 
-        
         if (!isChartInitialized) {
             renderDynamicChart();
             isChartInitialized = true;
         }
     } else {
-        globalHeader.style.display = 'flex';
         document.getElementById('header-title').innerText = headerTitle;
-        mainWorkspace.style.padding = '10px 15px 120px 15px';
-        mainWorkspace.style.overflowY = 'auto'; 
     }
 }
 
 function toggleBranding(element) {
     element.classList.toggle('is-expanded');
     if(element.classList.contains('is-expanded')) {
-        setTimeout(() => {
-            element.classList.remove('is-expanded');
-        }, 3000);
+        setTimeout(() => element.classList.remove('is-expanded'), 3000);
     }
 }
 
 function performSystemCleanup() {
-    if (window.confirm("Perform cache purge? This clears temporary system buffers.")) {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.reload(true);
+    if (window.confirm("Perform cache purge?")) {
+        localStorage.clear(); sessionStorage.clear(); window.location.reload(true);
     }
 }
 
-// REGISTER SERVICE WORKER FOR APP INSTALL (PWA)
+// PWA SERVICE WORKER
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').then(reg => {
-            console.log('SW registered');
-        }).catch(err => console.log('SW error', err));
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error'));
     });
 }
