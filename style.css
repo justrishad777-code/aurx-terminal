@@ -66,10 +66,10 @@ html, body {
 .pull-refresh-indicator.is-done .ptr-check { opacity: 1; transform: scale(1); }
 @keyframes moduleFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-.welcome-header { margin-bottom: 20px; color: var(--text-secondary); font-size: 14px; }
-.welcome-header span { color: var(--text-primary); font-size: 22px; font-weight: 700; display: block; margin-top: 4px; }
+.welcome-header { margin: 8px 0 14px 0; padding-right: 64px; color: var(--text-secondary); font-size: 13px; }
+.welcome-header span { color: var(--text-primary); font-size: 19px; font-weight: 700; display: block; margin-top: 3px; }
 .live-indicator {
-    display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;
     font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
     color: #FF3B30;
 }
@@ -166,7 +166,7 @@ html, body {
 
 /* Positional Logic for Logo */
 .pos-dashboard {
-top: 12px !important;
+top: 14px !important;
 bottom: auto !important;
 right: 12px !important;
 flex-direction: row-reverse;

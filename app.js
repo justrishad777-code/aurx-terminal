@@ -41,7 +41,7 @@ function filterWatchlist() { let filter = document.getElementById('searchInput')
 function routeTo(viewId, headerTitle, triggerElement) {
     document.querySelectorAll('.view-module').forEach(view => view.classList.remove('is-active')); document.getElementById(viewId).classList.add('is-active'); document.querySelectorAll('.nav-action').forEach(btn => btn.classList.remove('is-active')); triggerElement.classList.add('is-active');
     const globalHeader = document.getElementById('globalHeader'); const mainWorkspace = document.getElementById('mainWorkspace');
-    if (viewId === 'view-terminal') { globalHeader.style.display = 'none'; mainWorkspace.style.padding = '0 0 50px 0'; mainWorkspace.style.overflowY = 'hidden'; if (!isChartInitialized) { renderDynamicChart(); isChartInitialized = true; } } else { globalHeader.style.display = 'flex'; document.querySelector('#globalHeader h1').innerText = headerTitle; mainWorkspace.style.padding = '10px 15px 70px 15px'; mainWorkspace.style.overflowY = 'auto'; }
+    if (viewId === 'view-terminal') { globalHeader.style.display = 'none'; mainWorkspace.style.padding = '0 0 50px 0'; mainWorkspace.style.overflowY = 'hidden'; if (!isChartInitialized) { renderDynamicChart(); isChartInitialized = true; } } else if (viewId === 'view-dashboard') { globalHeader.style.display = 'none'; mainWorkspace.style.padding = '0 10px 70px 10px'; mainWorkspace.style.overflowY = 'auto'; } else { globalHeader.style.display = 'flex'; document.querySelector('#globalHeader h1').innerText = headerTitle; mainWorkspace.style.padding = '10px 15px 70px 15px'; mainWorkspace.style.overflowY = 'auto'; }
 }
 
 function performSystemCleanup() { if (window.confirm("Perform cache purge?")) { localStorage.clear(); sessionStorage.clear(); window.location.reload(true); } }
@@ -90,6 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
     reorderDashboardCards();
     initPullToRefresh();
     initInstallPrompt();
+    const globalHeader = document.getElementById('globalHeader');
+    const mainWorkspace = document.getElementById('mainWorkspace');
+    if (globalHeader && mainWorkspace) {
+        globalHeader.style.display = 'none';
+        mainWorkspace.style.padding = '0 10px 70px 10px';
+    }
 });
 
 let deferredInstallPrompt = null;
