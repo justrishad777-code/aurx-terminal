@@ -37,14 +37,18 @@
 
         <div id="view-dashboard" class="view-module is-active">
             <div class="welcome-header">Welcome back, <span>Market Overview</span></div>
-            
-            <div class="asset-card">
+
+            <div id="dashboardCards">
+            <div class="asset-card" data-symbol="XAUUSD">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
                     { "symbol": "OANDA:XAUUSD", "width": "100%", "height": "100%", "locale": "en", "dateRange": "1M", "colorTheme": "dark", "trendLineColor": "#F5B726", "isTransparent": true, "autosize": true }
                     </script>
                 </div>
                 <div class="mask-tv-top-right"></div> 
+                <div class="fav-star" onclick="event.stopPropagation(); toggleFavorite('XAUUSD', this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
                 <div class="brand-monogram pos-dashboard" onclick="event.stopPropagation(); toggleBranding(this)">
                     <div class="brand-circle">
                         <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
@@ -56,13 +60,16 @@
                 </div>
             </div>
 
-            <div class="asset-card">
+            <div class="asset-card" data-symbol="DXY">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
                     { "symbol": "CAPITALCOM:DXY", "width": "100%", "height": "100%", "locale": "en", "dateRange": "1M", "colorTheme": "dark", "trendLineColor": "#0E85FF", "isTransparent": true, "autosize": true }
                     </script>
                 </div>
                 <div class="mask-tv-top-right"></div> 
+                <div class="fav-star" onclick="event.stopPropagation(); toggleFavorite('DXY', this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
                 <div class="brand-monogram pos-dashboard" onclick="event.stopPropagation(); toggleBranding(this)">
                     <div class="brand-circle">
                         <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
@@ -74,13 +81,16 @@
                 </div>
             </div>
 
-            <div class="asset-card">
+            <div class="asset-card" data-symbol="US500">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
                     { "symbol": "CAPITALCOM:US500", "width": "100%", "height": "100%", "locale": "en", "dateRange": "1M", "colorTheme": "dark", "trendLineColor": "#00C873", "isTransparent": true, "autosize": true }
                     </script>
                 </div>
                 <div class="mask-tv-top-right"></div> 
+                <div class="fav-star" onclick="event.stopPropagation(); toggleFavorite('US500', this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
                 <div class="brand-monogram pos-dashboard" onclick="event.stopPropagation(); toggleBranding(this)">
                     <div class="brand-circle">
                         <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
@@ -92,13 +102,16 @@
                 </div>
             </div>
 
-            <div class="asset-card">
+            <div class="asset-card" data-symbol="BTCUSDT">
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
                     { "symbol": "BINANCE:BTCUSDT", "width": "100%", "height": "100%", "locale": "en", "dateRange": "1M", "colorTheme": "dark", "trendLineColor": "#F7931A", "isTransparent": true, "autosize": true }
                     </script>
                 </div>
                 <div class="mask-tv-top-right"></div> 
+                <div class="fav-star" onclick="event.stopPropagation(); toggleFavorite('BTCUSDT', this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
                 <div class="brand-monogram pos-dashboard" onclick="event.stopPropagation(); toggleBranding(this)">
                     <div class="brand-circle">
                         <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
@@ -108,6 +121,7 @@
                     </div>
                     <div class="brand-label">Aurx</div>
                 </div>
+            </div>
             </div>
         </div>
 

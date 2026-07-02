@@ -46,3 +46,46 @@ function routeTo(viewId, headerTitle, triggerElement) {
 
 function performSystemCleanup() { if (window.confirm("Perform cache purge?")) { localStorage.clear(); sessionStorage.clear(); window.location.reload(true); } }
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error')); }); }
+
+const FAVORITES_KEY = 'aurx_favorite_symbols';
+
+function getFavorites() {
+    try { return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || []; } catch (e) { return []; }
+}
+
+function saveFavorites(favs) { localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs)); }
+
+function reorderDashboardCards() {
+    const container = document.getElementById('dashboardCards');
+    if (!container) return;
+    const favs = getFavorites();
+    const cards = Array.from(container.querySelectorAll('.asset-card'));
+    cards.sort((a, b) => {
+        const aFav = favs.includes(a.dataset.symbol) ? 0 : 1;
+        const bFav = favs.includes(b.dataset.symbol) ? 0 : 1;
+        return aFav - bFav;
+    });
+    cards.forEach(card => container.appendChild(card));
+}
+
+function applyFavoriteStates() {
+    const favs = getFavorites();
+    document.querySelectorAll('.asset-card').forEach(card => {
+        const star = card.querySelector('.fav-star');
+        if (!star) return;
+        if (favs.includes(card.dataset.symbol)) { star.classList.add('is-favorited'); } else { star.classList.remove('is-favorited'); }
+    });
+}
+
+function toggleFavorite(symbol, element) {
+    let favs = getFavorites();
+    if (favs.includes(symbol)) { favs = favs.filter(s => s !== symbol); } else { favs.push(symbol); }
+    saveFavorites(favs);
+    applyFavoriteStates();
+    reorderDashboardCards();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyFavoriteStates();
+    reorderDashboardCards();
+});
