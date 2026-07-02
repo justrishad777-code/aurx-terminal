@@ -52,10 +52,16 @@ html, body {
 .wb-header-right { display: flex; gap: 18px; color: var(--text-primary); }
 .wb-chart-container { flex: 1; position: relative; background: var(--bg-base); width: 100%; overflow: hidden; }
 
-/* TV LOGO MASKS - CLICK BLOCKER ADDED HERE */
-.mask-overlay { position: absolute; background-color: var(--bg-panel); z-index: 2000; pointer-events: auto; }
-.mask-dash { bottom: 0; left: 0; width: 120px; height: 35px; border-top-right-radius: 8px; }
-.mask-chart { bottom: 0; left: 0; width: 90px; height: 40px; background-color: var(--bg-base); border-top-right-radius: 8px; }
+/* TV LOGO MASKS - Top Right Hide */
+.mask-tv-top-right { 
+    position: absolute; 
+    top: 6px; right: 6px; 
+    width: 32px; height: 32px; 
+    background-color: var(--bg-panel); 
+    z-index: 2000; 
+    pointer-events: auto; 
+    border-radius: 6px;
+}
 
 /* BRANDING LOGO (Expandable) */
 .brand-monogram { 
