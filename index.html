@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RTV Terminal</title>
+    <title>Aurx</title>
     
     <!-- PWA Setup -->
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="aurx-icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="aurx-icon.svg">
+    
     <meta name="theme-color" content="#000000">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,8 +22,8 @@
     <svg class="global-defs" aria-hidden="true" focusable="false">
         <defs>
             <linearGradient id="brandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FF2E50"/>
-                <stop offset="100%" stop-color="#A60011"/>
+                <stop offset="0%" stop-color="#00C873"/>
+                <stop offset="100%" stop-color="#007A46"/>
             </linearGradient>
         </defs>
     </svg>
@@ -48,8 +51,13 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
-                    <div class="brand-label">Rishad Trade Viewer</div>
+                    <div class="brand-circle">
+                        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
+                            <path d="M 25,80 L 50,25 L 75,80" stroke="#00C873" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 15,65 L 85,35" stroke="#00C873" stroke-width="12" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="brand-label">Aurx</div>
                 </div>
             </div>
 
@@ -61,8 +69,13 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
-                    <div class="brand-label">Rishad Trade Viewer</div>
+                    <div class="brand-circle">
+                        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
+                            <path d="M 25,80 L 50,25 L 75,80" stroke="#00C873" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 15,65 L 85,35" stroke="#00C873" stroke-width="12" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="brand-label">Aurx</div>
                 </div>
             </div>
 
@@ -74,8 +87,13 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
-                    <div class="brand-label">Rishad Trade Viewer</div>
+                    <div class="brand-circle">
+                        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
+                            <path d="M 25,80 L 50,25 L 75,80" stroke="#00C873" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 15,65 L 85,35" stroke="#00C873" stroke-width="12" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="brand-label">Aurx</div>
                 </div>
             </div>
 
@@ -87,13 +105,18 @@
                 </div>
                 <div class="mask-overlay mask-dash"></div> 
                 <div class="brand-monogram pos-dashboard" onclick="toggleBranding(this)">
-                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
-                    <div class="brand-label">Rishad Trade Viewer</div>
+                    <div class="brand-circle">
+                        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
+                            <path d="M 25,80 L 50,25 L 75,80" stroke="#00C873" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 15,65 L 85,35" stroke="#00C873" stroke-width="12" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="brand-label">Aurx</div>
                 </div>
             </div>
         </div>
 
-        <!-- MODULE 2: CHART TERMINAL (ULTRA MAX SPACE) -->
+        <!-- MODULE 2: CHART (NO SCROLL) -->
         <div id="view-terminal" class="view-module">
             
             <div class="wb-chart-header">
@@ -108,9 +131,7 @@
                     </div>
                 </div>
                 <div class="wb-header-right">
-                    <!-- SEARCH ICON -->
                     <svg onclick="openSearchModal()" width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="cursor:pointer;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <!-- SETTINGS / TIMEFRAME MENU ICON -->
                     <svg onclick="openChartSettings()" width="22" height="22" viewBox="0 0 24 24" class="icon-stroke" style="cursor:pointer;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
                 </div>
             </div>
@@ -118,10 +139,16 @@
             <!-- Dynamic Chart Container -->
             <div class="wb-chart-container">
                 <div id="dynamic-chart-wrapper" style="height:100%;width:100%;"></div>
+                
                 <div class="mask-overlay mask-chart"></div>
                 <div class="brand-monogram pos-terminal" onclick="toggleBranding(this)">
-                    <div class="brand-circle"><div class="brand-typography">RTV</div></div>
-                    <div class="brand-label">Rishad Trade Viewer</div>
+                    <div class="brand-circle">
+                        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 0px 4px rgba(0,200,115,0.4));">
+                            <path d="M 25,80 L 50,25 L 75,80" stroke="#00C873" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 15,65 L 85,35" stroke="#00C873" stroke-width="12" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="brand-label">Aurx</div>
                 </div>
             </div>
         </div>
@@ -143,14 +170,14 @@
                 <li class="settings-item" onclick="performSystemCleanup()">
                     <span class="settings-icon">🧹</span> Clear System Cache
                 </li>
-                <li class="settings-item" onclick="alert('RTV Terminal Environment v3.5 is running natively.')">
+                <li class="settings-item" onclick="alert('Aurx Pro Engine v1.0 Native Build is running.')">
                     <span class="settings-icon">ℹ️</span> System Version Info
                 </li>
             </ul>
         </div>
     </div>
 
-    <!-- WEBULL STYLE NATIVE SEARCH OVERLAY -->
+    <!-- NATIVE SEARCH OVERLAY -->
     <div id="searchModal" class="full-screen-modal">
         <div class="search-header">
             <div class="search-bar">
@@ -194,7 +221,7 @@
         </div>
     </div>
 
-    <!-- CHART SETTINGS OVERLAY (Timeframe & Tools) -->
+    <!-- CHART SETTINGS OVERLAY -->
     <div id="chartSettingsModal" class="full-screen-modal">
         <div class="search-header">
             <h3 style="color:var(--text-primary); font-size:16px;">Chart Settings</h3>
@@ -234,7 +261,7 @@
         </div>
     </div>
 
-    <!-- EXTREMELY COMPACT BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAVIGATION -->
     <div class="primary-nav">
         <button class="nav-action is-active" onclick="routeTo('view-dashboard', 'Markets', this)">
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
