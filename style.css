@@ -87,7 +87,12 @@ html, body {
 }
 
 /* Positional Logic for Logo */
-.pos-dashboard { bottom: 10px !important; right: 10px !important; flex-direction: row-reverse; }
+.pos-dashboard {
+top: 12px !important;
+bottom: auto !important;
+right: 12px !important;
+flex-direction: row-reverse;
+}
 .pos-dashboard .brand-label { margin-right: 0px; }
 .pos-dashboard.is-expanded .brand-label { opacity: 1; margin-right: 12px; margin-left: 12px; }
 
