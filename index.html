@@ -36,6 +36,13 @@
     <div class="workspace" id="mainWorkspace">
 
         <div id="view-dashboard" class="view-module is-active">
+            <div class="pull-refresh-indicator" id="pullRefreshIndicator">
+                <div class="ptr-circle">
+                    <div class="ptr-spinner"></div>
+                    <svg class="ptr-check" viewBox="0 0 24 24" fill="none" stroke="#00C873" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+            </div>
+            <div class="pull-content" id="dashboardPullContent">
             <div class="welcome-header">Welcome back, <span>Market Overview</span></div>
 
             <div id="dashboardCards">
@@ -121,6 +128,7 @@
                     </div>
                     <div class="brand-label">Aurx</div>
                 </div>
+            </div>
             </div>
             </div>
         </div>

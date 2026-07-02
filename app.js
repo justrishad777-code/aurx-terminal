@@ -88,4 +88,106 @@ function toggleFavorite(symbol, element) {
 document.addEventListener('DOMContentLoaded', () => {
     applyFavoriteStates();
     reorderDashboardCards();
+    initPullToRefresh();
 });
+
+function initPullToRefresh() {
+    const scrollContainer = document.getElementById('mainWorkspace');
+    const indicator = document.getElementById('pullRefreshIndicator');
+    const pullContent = document.getElementById('dashboardPullContent');
+    const dashboardView = document.getElementById('view-dashboard');
+    if (!scrollContainer || !indicator || !pullContent || !dashboardView) return;
+
+    const THRESHOLD = 68;
+    const MAX_PULL = 100;
+    let startY = 0;
+    let pulling = false;
+    let currentPull = 0;
+    let refreshing = false;
+
+    function isDashboardActive() { return dashboardView.classList.contains('is-active'); }
+
+    function setTransition(on) {
+        pullContent.style.transition = on ? 'transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        indicator.style.transition = on ? 'transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease' : 'opacity 0.2s ease';
+    }
+
+    scrollContainer.addEventListener('touchstart', (e) => {
+        if (!isDashboardActive() || refreshing) { pulling = false; return; }
+        if (scrollContainer.scrollTop <= 0) {
+            startY = e.touches[0].clientY;
+            pulling = true;
+            setTransition(false);
+        } else {
+            pulling = false;
+        }
+    }, { passive: true });
+
+    scrollContainer.addEventListener('touchmove', (e) => {
+        if (!pulling || refreshing) return;
+        const deltaY = e.touches[0].clientY - startY;
+        if (deltaY <= 0) {
+            currentPull = 0;
+            pullContent.style.transform = '';
+            indicator.style.opacity = 0;
+            indicator.style.transform = 'translateY(0)';
+            return;
+        }
+        currentPull = Math.min(deltaY * 0.45, MAX_PULL);
+        pullContent.style.transform = `translateY(${currentPull}px)`;
+        indicator.style.transform = `translateY(${currentPull}px)`;
+        indicator.style.opacity = Math.min(currentPull / THRESHOLD, 1);
+    }, { passive: true });
+
+    scrollContainer.addEventListener('touchend', () => {
+        if (!pulling || refreshing) { pulling = false; return; }
+        pulling = false;
+        if (currentPull >= THRESHOLD) {
+            triggerRefresh();
+        } else {
+            resetPull();
+        }
+    });
+
+    function resetPull() {
+        setTransition(true);
+        pullContent.style.transform = '';
+        indicator.style.transform = 'translateY(0)';
+        indicator.style.opacity = 0;
+        currentPull = 0;
+    }
+
+    function triggerRefresh() {
+        refreshing = true;
+        indicator.classList.add('is-refreshing');
+        setTransition(true);
+        pullContent.style.transform = `translateY(${THRESHOLD}px)`;
+        indicator.style.transform = `translateY(${THRESHOLD}px)`;
+        indicator.style.opacity = 1;
+
+        setTimeout(() => {
+            reloadDashboardWidgets();
+            indicator.classList.remove('is-refreshing');
+            indicator.classList.add('is-done');
+            setTimeout(() => {
+                indicator.classList.remove('is-done');
+                resetPull();
+                refreshing = false;
+            }, 550);
+        }, 900);
+    }
+
+    function reloadDashboardWidgets() {
+        document.querySelectorAll('#dashboardCards .tradingview-widget-container').forEach(container => {
+            const oldScript = container.querySelector('script');
+            if (!oldScript) return;
+            const newScript = document.createElement('script');
+            newScript.type = 'text/javascript';
+            newScript.async = true;
+            newScript.src = oldScript.src;
+            newScript.textContent = oldScript.textContent;
+            container.innerHTML = '';
+            container.appendChild(newScript);
+        });
+    }
+}
