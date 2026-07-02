@@ -188,8 +188,38 @@ flex-direction: row-reverse;
 .nav-action.is-active::after { content: ''; position: absolute; top: -7px; left: 50%; transform: translateX(-50%); width: 18px; height: 2px; border-radius: 2px; background: #FF3B30; box-shadow: 0 0 6px rgba(255, 59, 48, 0.8); }
 
 /* MENUS & MODALS */
-.settings-menu { list-style: none; width: 100%; }
-.settings-item { display: flex; align-items: center; padding: 20px; background: var(--bg-panel); border-radius: 12px; border: 1px solid var(--border-subtle); margin-bottom: 12px; font-weight: 600; cursor: pointer; color: var(--text-primary); }
+.settings-menu {
+    list-style: none; width: 100%; padding: 6px;
+    background: rgba(20, 22, 28, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.settings-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 16px; margin: 4px; border-radius: 14px;
+    font-weight: 600; font-size: 15px; cursor: pointer; color: var(--text-primary);
+    border: 1px solid transparent;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.settings-item:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.settings-item:active { transform: scale(0.98); background: rgba(255, 59, 48, 0.08); }
+.settings-item:hover { background: rgba(255, 59, 48, 0.06); border-color: rgba(255, 59, 48, 0.2); }
+.settings-icon { font-size: 18px; line-height: 1; }
+
+.install-cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; margin-top: 18px; padding: 17px 16px;
+    border: 1px solid rgba(255, 59, 48, 0.55); border-radius: 16px;
+    background: linear-gradient(180deg, rgba(255, 59, 48, 0.18) 0%, rgba(255, 59, 48, 0.08) 100%);
+    color: #FF3B30; font-weight: 800; font-size: 15px; letter-spacing: 0.2px;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 18px rgba(255, 59, 48, 0.18), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.install-cta:active { transform: scale(0.97); box-shadow: 0 2px 10px rgba(255, 59, 48, 0.25); }
+.install-cta .settings-icon { font-size: 17px; }
 .full-screen-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 9999; display: none; flex-direction: column; animation: slideUp 0.2s ease; }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 .search-header { display: flex; align-items: center; justify-content: space-between; padding: 15px; background: var(--bg-panel); border-bottom: 1px solid var(--border-subtle); gap: 15px; }
