@@ -1,7 +1,7 @@
 let chartState = {
     symbol: "OANDA:XAUUSD",
     interval: "D",
-    style: "1",      // 1=Solid Candle, 9=Hollow Candle, 3=Area
+    style: "1",      // 1=Solid, 9=Hollow, 3=Area
     showDraw: false  
 };
 
@@ -34,7 +34,7 @@ function renderDynamicChart() {
         "allow_symbol_change": false,
         "save_image": false,
         "container_id": "tv_dynamic_container",
-        // WEBULL SIGNATURE COLORS FOR BOTH SOLID AND HOLLOW CANDLES
+        // EXACT WEBULL NEON COLORS FOR CANDLES
         "studies_overrides": {},
         "overrides": {
             "mainSeriesProperties.candleStyle.upColor": "#00C873",
@@ -53,38 +53,45 @@ function renderDynamicChart() {
     });
 }
 
-// DROPDOWN MANAGERS
-function toggleMenu(menuId) {
-    document.querySelectorAll('.custom-dropdown').forEach(el => {
-        if(el.id !== menuId) el.classList.remove('is-visible');
-    });
-    document.getElementById(menuId).classList.toggle('is-visible');
+// ================= CHART SETTINGS MODAL LOGIC =================
+function openChartSettings() {
+    document.getElementById('chartSettingsModal').style.display = 'flex';
 }
 
-function applyTimeframe(intervalCode, label, element) {
+function closeChartSettings() {
+    document.getElementById('chartSettingsModal').style.display = 'none';
+}
+
+function applyTimeframe(intervalCode, element) {
     chartState.interval = intervalCode;
-    document.getElementById('current-tf-label').innerText = label;
-    document.getElementById('tf-dropdown').querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('is-active'));
+    let siblings = element.parentNode.querySelectorAll('.tf-option');
+    siblings.forEach(opt => opt.classList.remove('is-active'));
     element.classList.add('is-active');
-    document.getElementById('tf-dropdown').classList.remove('is-visible');
     renderDynamicChart();
 }
 
 function applyStyle(styleCode, element) {
     chartState.style = styleCode;
-    document.getElementById('style-dropdown').querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('is-active'));
+    let siblings = element.parentNode.querySelectorAll('.tf-option');
+    siblings.forEach(opt => opt.classList.remove('is-active'));
     element.classList.add('is-active');
-    document.getElementById('style-dropdown').classList.remove('is-visible');
     renderDynamicChart();
 }
 
-function toggleDrawing(element) {
+function toggleDrawingMenu(element) {
     chartState.showDraw = !chartState.showDraw;
-    element.classList.toggle('is-selected');
+    if(chartState.showDraw) {
+        element.classList.add('is-active');
+        element.innerText = "Hide Left Toolbar";
+    } else {
+        element.classList.remove('is-active');
+        element.innerText = "Show Left Toolbar";
+    }
     renderDynamicChart();
 }
 
-// WEBULL SEARCH MODAL LOGIC
+
+// ================= SEARCH MODAL LOGIC =================
 function openSearchModal() {
     document.getElementById('searchModal').style.display = 'flex';
     document.getElementById('searchInput').focus();
@@ -115,7 +122,7 @@ function filterWatchlist() {
     }
 }
 
-// ROUTING & SCROLL LOCK LOGIC
+// ================= ROUTING & SCROLL LOCK =================
 function routeTo(viewId, headerTitle, triggerElement) {
     document.querySelectorAll('.view-module').forEach(view => view.classList.remove('is-active'));
     document.getElementById(viewId).classList.add('is-active');
@@ -129,7 +136,7 @@ function routeTo(viewId, headerTitle, triggerElement) {
     if (viewId === 'view-terminal') {
         globalHeader.style.display = 'none';
         
-        // PADDING 50px at the bottom accounts for the compact nav bar exactly.
+        // STRICT LOCK FOR TERMINAL (Leaves exact 50px for nav)
         mainWorkspace.style.padding = '0 0 50px 0';
         mainWorkspace.style.overflowY = 'hidden'; 
         
@@ -140,7 +147,7 @@ function routeTo(viewId, headerTitle, triggerElement) {
     } else {
         globalHeader.style.display = 'flex';
         document.getElementById('header-title').innerText = headerTitle;
-        // PADDING 70px gives 20px extra scroll space above the nav for other views.
+        // RESTORE SCROLL FOR DASHBOARD
         mainWorkspace.style.padding = '10px 15px 70px 15px';
         mainWorkspace.style.overflowY = 'auto'; 
     }
