@@ -1,10 +1,10 @@
 let chartState = {
     symbol: "OANDA:XAUUSD",
     interval: "D",
-    style: "1",      // 1=Solid, 9=Hollow, 3=Area
+    style: "1",      // 1=Solid Candle, 9=Hollow Candle, 3=Area
     showDraw: false  
 };
- 
+
 let isChartInitialized = false;
 
 function renderDynamicChart() {
@@ -55,11 +55,9 @@ function renderDynamicChart() {
 
 // DROPDOWN MANAGERS
 function toggleMenu(menuId) {
-    // Hide all first
     document.querySelectorAll('.custom-dropdown').forEach(el => {
         if(el.id !== menuId) el.classList.remove('is-visible');
     });
-    // Toggle target
     document.getElementById(menuId).classList.toggle('is-visible');
 }
 
@@ -117,7 +115,7 @@ function filterWatchlist() {
     }
 }
 
-// ROUTING
+// ROUTING & SCROLL LOCK LOGIC
 function routeTo(viewId, headerTitle, triggerElement) {
     document.querySelectorAll('.view-module').forEach(view => view.classList.remove('is-active'));
     document.getElementById(viewId).classList.add('is-active');
@@ -125,13 +123,26 @@ function routeTo(viewId, headerTitle, triggerElement) {
     document.querySelectorAll('.nav-action').forEach(btn => btn.classList.remove('is-active'));
     triggerElement.classList.add('is-active');
     
+    const globalHeader = document.getElementById('globalHeader');
+    const mainWorkspace = document.getElementById('mainWorkspace');
+
     if (viewId === 'view-terminal') {
+        globalHeader.style.display = 'none';
+        
+        // PADDING 50px at the bottom accounts for the compact nav bar exactly.
+        mainWorkspace.style.padding = '0 0 50px 0';
+        mainWorkspace.style.overflowY = 'hidden'; 
+        
         if (!isChartInitialized) {
             renderDynamicChart();
             isChartInitialized = true;
         }
     } else {
+        globalHeader.style.display = 'flex';
         document.getElementById('header-title').innerText = headerTitle;
+        // PADDING 70px gives 20px extra scroll space above the nav for other views.
+        mainWorkspace.style.padding = '10px 15px 70px 15px';
+        mainWorkspace.style.overflowY = 'auto'; 
     }
 }
 
@@ -146,11 +157,4 @@ function performSystemCleanup() {
     if (window.confirm("Perform cache purge?")) {
         localStorage.clear(); sessionStorage.clear(); window.location.reload(true);
     }
-}
-
-// PWA SERVICE WORKER
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error'));
-    });
 }
